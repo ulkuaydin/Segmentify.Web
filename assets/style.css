@@ -557,7 +557,7 @@ header .text {
 
 .item img {
   vertical-align: middle;
-  width: auto;
+  max-width: 100%;
   height: auto;
   object-fit: cover;
 }

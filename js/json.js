@@ -9,9 +9,8 @@ fetch("db/product-list.json", {
   .then((responseJson) => {
     //console.log(typeof(responseJson.responses[0][0].params.userCategories));
 
-    var hepsi = responseJson.responses[0][0].params.userCategories;
-    
-    var x = Object.entries(hepsi);
+    var all= responseJson.responses[0][0].params.userCategories;
+    var x = Object.entries(all);
     var categoryDocument = document.getElementById('userCategories');
     var categories = '';
     var categoryArray = [];
@@ -34,6 +33,7 @@ fetch("db/product-list.json", {
 
     categoryArray.forEach((element) =>{
         var mainDiv = document.createElement('div');
+        
         allProducts[element].forEach((product)=>{
             var productDiv = document.createElement('div');
             productDiv.className = 'item';
@@ -72,50 +72,51 @@ fetch("db/product-list.json", {
             productDiv.appendChild(button);
             mainDiv.appendChild(productDiv);
         });
+        
         mainDiv.className = 'owl-carousel allDivs '+element;
         mainDiv.style.display = 'none';
         document.getElementById('sliderView').appendChild(mainDiv);
         
     });
-    
     var owl = $('.owl-carousel');
-owl.owlCarousel({
-    loop:true,
-    margin:10,
-    navText:["<img src='images/arrow_back_ios_black_24dp.svg' alt='previous' />","<img src='images/arrow_forward_ios_black_18dp.svg' alt='next' />"],
-    responsiveClass:true,
-    dots:false,
-    responsive:{
-        0:{
-            items:2,
-            nav:false,
-
-        },
-        576:{
-            items:3,
-            nav:false
-        },
-        768:{
-           items:2,
-           nav:true
-        },
-
-        1000:{
-            items:4,
-            nav:true,
-            loop:false
+    owl.owlCarousel({
+        loop:true,
+        margin:10,
+        navText:["<img src='images/arrow_back_ios_black_24dp.svg' alt='previous' />","<img src='images/arrow_forward_ios_black_18dp.svg' alt='next' />"],
+        responsiveClass:true,
+        dots:false,
+        responsive:{
+            0:{
+                items:2,
+                nav:false,
+    
+            },
+            576:{
+                items:3,
+                nav:false
+            },
+            768:{
+               items:2,
+               nav:true
+            },
+    
+            1000:{
+                items:4,
+                nav:true,
+                loop:false
+            }
         }
-    }
+    
+    });
+    owl.on('mousewheel', '.owl-stage', function (e) {
+        if (e.deltaY>0) {
+            owl.trigger('next.owl');
+        } else {
+            owl.trigger('prev.owl');
+        }
+        e.preventDefault();
+    });
 
-});
-owl.on('mousewheel', '.owl-stage', function (e) {
-    if (e.deltaY>0) {
-        owl.trigger('next.owl');
-    } else {
-        owl.trigger('prev.owl');
-    }
-    e.preventDefault();
-});
 
   }).then((response)=>{
     document.getElementsByClassName('allDivs')[0].style.display = 'block';

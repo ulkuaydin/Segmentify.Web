@@ -86,7 +86,7 @@ header {
   border: 1px solid $hover-color;
   img {
     vertical-align: middle;
-    width: auto;
+    max-width: 100%;
     height: auto;
     object-fit: cover;
   }
