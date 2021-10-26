@@ -7,7 +7,7 @@ fetch("db/product-list.json", {
 })
   .then((response) => response.json())
   .then((responseJson) => {
-    //console.log(typeof(responseJson.responses[0][0].params.userCategories));
+    
 
     var all= responseJson.responses[0][0].params.userCategories;
     var x = Object.entries(all);
